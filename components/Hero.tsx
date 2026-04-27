@@ -10,7 +10,7 @@ const Hero = () => {
           playsInline
           className="w-full h-full object-cover opacity-60"
         >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" type="video/mp4" />
+          <source src="" type="video/mp4" />
          
         </video>
         {/* Dark Overlay with Green Tint */}
