@@ -108,7 +108,7 @@ export default function GalleryPage() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.5 }}
-              className="group relative aspect-square rounded-[2rem] overflow-hidden shadow-xl cursor-pointer"
+              className="group relative aspect-square rounded-[2.5rem] overflow-hidden shadow-xl cursor-pointer"
             >
               <Image
                 src={img.src}

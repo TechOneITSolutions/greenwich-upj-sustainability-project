@@ -78,7 +78,7 @@ export default function Home() {
                 alt="Engineering team collaboration"
                 width={600}
                 height={800}
-                className="rounded-xl shadow-2xl object-cover w-full h-[600px]"
+                className="rounded-[2.5rem] shadow-2xl object-cover w-full h-[600px]"
               />
             </motion.div>
 

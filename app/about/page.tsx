@@ -272,7 +272,7 @@ export default function AboutPage() {
                 key={i}
                 {...fadeInUp}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white rounded-xl p-10 flex flex-col items-center text-center shadow-2xl"
+                className="bg-white rounded-[2.5rem] p-10 flex flex-col items-center text-center shadow-2xl"
               >
                 <div className="relative w-24 h-24 rounded-full overflow-hidden mb-8 border-4 border-emerald-50">
                   <Image

@@ -68,7 +68,7 @@ const Hero = () => {
               </span>
             </div>
             
-            <h1 className="text-2xl md:text-3xl lg:text-5xl font-black tracking-tight text-white mb-5 max-w-6xl drop-shadow-2xl">
+            <h1 className="text-2xl md:text-3xl lg:text-5xl font-black tracking-tight leading-tight text-white mb-5 max-w-6xl drop-shadow-2xl">
               {slides[current].title}
             </h1>
             
