@@ -69,7 +69,7 @@ export default function EventsPage() {
                   Stakeholder Workshop
                 </h3>
                 <p className="text-[#4aa537] font-bold text-2xl md:text-3xl mb-10 leading-tight">
-                  Safety & Mental Health in Engineering Education
+                  Sustainable Built Environment Workshop
                 </p>
 
                 <div className="space-y-6 text-gray-700 text-lg md:text-xl mb-12 font-medium">
@@ -77,7 +77,7 @@ export default function EventsPage() {
                     <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0">
                       <MapPin className="text-[#4aa537] w-5 h-5" />
                     </div>
-                    <span>Faculty of Tourism Hotel, Fayoum University, Fayoum, Egypt.</span>
+                    <span>Universitas Pembangunan Jaya, Tangerang Selatan, Indonesia.</span>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0">

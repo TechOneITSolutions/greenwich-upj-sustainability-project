@@ -29,10 +29,10 @@ export default function Home() {
               <p>
                 Welcome to the official website of the{" "}
                 <strong className="text-emerald-900">
-                  "Greenwich-UPJ Sustainability Project"
+                  &quot;Greenwich-UPJ Sustainability Project&quot;
                 </strong>{" "}
                 focused on strengthening capacity in sustainable built
-                environment education through responsible academic–industry
+                environment education through responsible academic&ndash;industry
                 engagement and digital innovation.
               </p>
               <p>
@@ -194,8 +194,8 @@ export default function Home() {
           </div>
 
           <p className="mt-16 text-emerald-900 font-medium italic">
-            "Together, we're leveraging the power of international collaboration
-            to strengthen capacity in sustainable built environment education."
+            &quot;Together, we&apos;re leveraging the power of international collaboration
+            to strengthen capacity in sustainable built environment education.&quot;
           </p>
         </div>
       </section>

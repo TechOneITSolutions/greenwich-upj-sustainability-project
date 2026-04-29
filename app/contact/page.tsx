@@ -111,7 +111,7 @@ export default function ContactPage() {
                 <div>
                   <h4 className="font-bold text-emerald-950 text-lg mb-1">Email Us</h4>
                   <p className="text-gray-600 leading-relaxed font-bold">
-                    [EMAIL_ADDRESS]
+                    contact@greenwich-upj-sustainability.org
                   </p>
                 </div>
               </div>

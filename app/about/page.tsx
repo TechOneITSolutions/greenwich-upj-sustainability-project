@@ -256,15 +256,15 @@ export default function AboutPage() {
                 img: "/images/team_1.png",
               },
               {
-                name: "Prof. Ahmed M. Fahmy Yousef",
-                role: "Egypt Principal Investigator",
-                bio: "Dr. Ahmed is dedicated to designing and evaluating new learning technologies that integrate cognitive science, learning analytics, and interactive media to enhance student outcomes in connected learning environments.",
+                name: "Prof. Ir. Frederik J. Putuhena",
+                role: "Co-Principal Investigator (Indonesia)",
+                bio: "Prof. Frederik is a leading expert in water resources and sustainable infrastructure at Universitas Pembangunan Jaya, dedicated to integrating industrial sustainability into academic curricula.",
                 img: "/images/team_2.png",
               },
               {
-                name: "Prof. Masoud E. Shaheen",
-                role: "Egypt Principal Investigator",
-                bio: "MASOUD E. SHAHEEN received the B.Sc. degree in science from the Department of Mathematics and Computer Science, Minia University, in 1996, the M.S. degree in computer science from the Faculty of Science, Fayoum University, Egypt, in 2005.",
+                name: "Dr. [Team Member Name]",
+                role: "Lead Researcher",
+                bio: "A specialist in digital innovation and sustainable built environments, focusing on the development of transnational education strategies and industry-linked research projects.",
                 img: "/images/team_3.png",
               },
             ].map((member, i) => (
