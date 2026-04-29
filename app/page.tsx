@@ -2,8 +2,7 @@
 
 import Hero from "@/components/Hero";
 import { motion } from "framer-motion";
-import { div } from "framer-motion/client";
-import { Users, Target, Rocket, Mail, ArrowRight } from "lucide-react";
+import { Users, Mail, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 export default function Home() {
@@ -64,50 +63,49 @@ export default function Home() {
       </section>
 
       {/* Mission & Vision Section */}
-      <section className="max-w-7xl mx-auto py-24 bg-gray-50">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center px-4 sm:px-6 lg:px-8">
-          <Image
-            src="/renewable_energy.jpg"
-            alt="Sustainable city"
-            width={500}
-            height={0}
-            className="rounded-lg"
-          />
-
-          <div className="flex flex-row md:flex-col gap-5">
+      <section className="bg-emerald-900 py-10 text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 grid-cols-1 items-center gap-16">
             <motion.div
-              {...fadeIn}
-              className="bg-white p-12 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-shadow group"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="w-full"
             >
-              <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-8 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                <Target className="w-8 h-8" />
-              </div>
-              <h3 className="text-3xl font-extrabold text-emerald-950 mb-6">
-                Mission Statement
-              </h3>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                To advance academic collaboration, staff development, and
-                educational innovation through a responsible UK–Indonesia
-                partnership involving universities, industry linked
-                organisations, and education foundations.
-              </p>
+              <Image
+                src="/images/mission_vision.png"
+                alt="Engineering team collaboration"
+                width={600}
+                height={800}
+                className="rounded-xl shadow-2xl object-cover w-full h-[600px]"
+              />
             </motion.div>
 
-            <motion.div
-              {...fadeIn}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="bg-emerald-900 p-12 rounded-3xl shadow-2xl text-white hover:scale-[1.02] transition-transform"
-            >
-              <div className="w-14 h-14 bg-emerald-800 rounded-2xl flex items-center justify-center text-emerald-400 mb-8">
-                <Rocket className="w-8 h-8" />
+            <motion.div {...fadeIn} className="w-full flex flex-col gap-8">
+              <div>
+                <h2 className="text-4xl font-bold mb-3 tracking-tight">
+                  Mission Statement
+                </h2>
+                <p className="text-xl text-white/90 font-medium">
+                  To advance academic collaboration, staff development, and
+                  educational innovation through a responsible UK–Indonesia
+                  partnership involving universities, industry linked
+                  organisations, and education foundations.
+                </p>
               </div>
-              <h3 className="text-3xl font-extrabold mb-6">Vision Statement</h3>
-              <p className="text-lg text-emerald-100/90 leading-relaxed">
-                To enable the University of Greenwich and Universitas
-                Pembangunan Jaya to contribute meaningfully to sustainable,
-                inclusive, and resilient built environments through globally
-                connected higher education.
-              </p>
+
+              <div>
+                <h2 className="text-4xl font-bold mb-3 tracking-tight">
+                  Vision Statement
+                </h2>
+                <p className="text-xl text-white/90 leading-relaxed font-medium">
+                  To enable the University of Greenwich and Universitas
+                  Pembangunan Jaya to contribute meaningfully to sustainable,
+                  inclusive, and resilient built environments through globally
+                  connected higher education.
+                </p>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -116,34 +114,22 @@ export default function Home() {
       {/* Project Focus Section */}
       <section className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              className="lg:w-1/2 order-2 lg:order-1"
-            >
-              <div className="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1518005020451-aba3b8fdf972?auto=format&fit=crop&q=80&w=1200"
-                  alt="Sustainability in Built Environment"
-                  className="rounded-[3rem] shadow-2xl"
-                />
-                <div className="absolute inset-0 rounded-[3rem] bg-emerald-900/10 mix-blend-multiply"></div>
+          <div className="grid lg:grid-cols-2 grid-cols-1 gap-16 items-center">
+            <motion.div {...fadeIn} className="order-2 lg:order-1">
+              <div className="mb-8">
+                <h2 className="text-5xl font-bold text-black capitalize mb-4 tracking-tight">
+                  Our project focus
+                </h2>
+                <div className="h-1.5 w-40 bg-black rounded-full"></div>
               </div>
-            </motion.div>
-
-            <motion.div {...fadeIn} className="lg:w-1/2 order-1 lg:order-2">
-              <h2 className="text-4xl font-extrabold text-emerald-950 mb-8 tracking-tight">
-                Our Project Focus
-              </h2>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              <p className="text-xl text-gray-800 mb-8 leading-relaxed font-medium">
                 This project is an international collaboration led by the
                 University of Greenwich (UK) in partnership with Universitas
                 Pembangunan Jaya (UPJ), Indonesia.
               </p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              <p className="text-xl text-gray-800 mb-12 leading-relaxed font-medium">
                 The collaboration emphasises{" "}
-                <strong>context-aware co-development</strong> aligned with
+                <strong className="text-emerald-700">context-aware co-development</strong> aligned with
                 international quality expectations and local priorities instead
                 of exporting a fixed model. Activities are delivered over a
                 defined programme cycle and are embedded within a formal
@@ -151,10 +137,28 @@ export default function Home() {
               </p>
               <a
                 href="/about"
-                className="bg-emerald-900 text-white px-10 py-4 rounded-full font-bold hover:bg-emerald-800 transition-all inline-block"
+                className="bg-emerald-900 text-white px-10 py-4 rounded-xl font-bold hover:bg-emerald-900/80 transition-all inline-block text-lg"
               >
                 Learn More
               </a>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="order-1 lg:order-2"
+            >
+              <div className="relative group">
+                <Image
+                  src="/images/project_focus.png"
+                  alt="Sustainability in Built Environment"
+                  className="rounded-[3rem] shadow-2xl w-full h-[700px] object-cover"
+                  width={600}
+                  height={800}
+                />
+              </div>
             </motion.div>
           </div>
         </div>
@@ -210,7 +214,7 @@ export default function Home() {
                 </h3>
                 <p className="text-lg text-emerald-900/70 mb-10">
                   We believe that collaboration is the key to success. Whether
-                  you’re an academic, industry expert, student, or someone
+                  you&apos;re an academic, industry expert, student, or someone
                   passionate about education, there are numerous ways to
                   contribute.
                 </p>
@@ -252,75 +256,6 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-emerald-950 text-white py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16 border-b border-white/10 pb-16">
-            <div className="col-span-1 md:col-span-2">
-              <h4 className="text-2xl font-bold mb-6">
-                Greenwich-UPJ Sustainability Project
-              </h4>
-              <p className="text-emerald-100/60 max-w-2xl text-lg italic leading-relaxed">
-                "Strengthening capacity in sustainable built environment
-                education through responsible academic–industry engagement and
-                digital innovation."
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm uppercase tracking-widest text-emerald-400 font-bold mb-8">
-                Navigation
-              </h4>
-              <ul className="space-y-4">
-                <li>
-                  <a
-                    href="/"
-                    className="hover:text-emerald-400 transition-colors"
-                  >
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/about"
-                    className="hover:text-emerald-400 transition-colors"
-                  >
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/partners"
-                    className="hover:text-emerald-400 transition-colors"
-                  >
-                    Our Partners
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/contact"
-                    className="hover:text-emerald-400 transition-colors"
-                  >
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-emerald-100/40">
-            <p>
-              © {new Date().getFullYear()} Greenwich-UPJ Sustainability Project.
-              All rights reserved.
-            </p>
-            <div className="flex gap-8">
-              <a href="#" className="hover:text-white transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
-                Terms of Service
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
