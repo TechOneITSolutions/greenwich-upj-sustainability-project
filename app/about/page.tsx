@@ -14,6 +14,7 @@ import {
   GraduationCap,
   Handshake,
   Send,
+  ChevronDown,
 } from "lucide-react";
 
 const fi = {
