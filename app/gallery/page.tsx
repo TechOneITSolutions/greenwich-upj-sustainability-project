@@ -15,41 +15,53 @@ const categories = ["All", "Workshops", "Meetings", "Field Work"];
 
 const images = [
   {
-    src: "/images/about_hero.png",
-    alt: "Sustainable City Planning",
-    category: "Workshops",
-    title: "Workshop on Urban Sustainability",
-  },
-  {
-    src: "/images/mission_vision.png",
-    alt: "Team Discussion",
+    src: "/images/kick_meeting.jpg",
+    alt: "Project Kick-off Meeting",
     category: "Meetings",
-    title: "Project Board Meeting",
+    title: "Project Kick-off Meeting",
+    date: "2023",
+    location: "Jakarta, Indonesia",
   },
   {
-    src: "/images/project_focus.png",
-    alt: "Field Engineer",
-    category: "Field Work",
-    title: "On-site Safety Assessment",
+    src: "/images/Roundtable.jpg",
+    alt: "Regulatory Roundtable",
+    category: "Meetings",
+    title: "Regulatory Roundtable",
+    date: "2023",
+    location: "Jakarta, Indonesia",
+  },
+  {
+    src: "/images/workshop.jpg",
+    alt: "Stakeholder Workshop",
+    category: "Workshops",
+    title: "Stakeholder Workshop",
+    date: "2023",
+    location: "Jakarta, Indonesia",
   },
   {
     src: "/images/about_background.png",
     alt: "Collaboration",
     category: "Workshops",
     title: "Knowledge Exchange Seminar",
+    date: "2023",
+    location: "Jakarta, Indonesia",
   },
   // Add more as needed, reusing images for now
   {
-    src: "/images/team_member_1.png",
+    src: "/images/institut.jpg",
     alt: "Academic Portrait",
     category: "Meetings",
     title: "Partner Institution Visit",
+    date: "2023",
+    location: "Jakarta, Indonesia",
   },
   {
-    src: "/images/team_member_2.png",
+    src: "/images/com_eng.jpg",
     alt: "Research Discussion",
     category: "Field Work",
     title: "Community Engagement Program",
+    date: "2023",
+    location: "Jakarta, Indonesia",
   },
 ];
 
@@ -74,7 +86,7 @@ export default function GalleryPage() {
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
             Visual highlights of our collaborative efforts, workshops, and 
-            milestones in advancing sustainable engineering education.
+            and project even
           </p>
         </motion.div>
 
@@ -123,6 +135,8 @@ export default function GalleryPage() {
                 <h3 className="text-white text-xl font-bold">
                   {img.title}
                 </h3>
+                <p className="text-gray-300 text-sm">{img.location}</p>
+                <p className="text-gray-400 text-sm">{img.date}</p>
               </div>
             </motion.div>
           ))}

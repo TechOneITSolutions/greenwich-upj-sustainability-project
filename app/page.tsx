@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import { motion } from "framer-motion";
 import { Users, Mail, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   const fadeIn = {
@@ -218,12 +219,12 @@ export default function Home() {
                   passionate about education, there are numerous ways to
                   contribute.
                 </p>
-                <a
-                  href="/contact"
+                <Link
+                  href="/get_involved"
                   className="bg-emerald-900 text-white px-8 py-4 rounded-full font-bold hover:bg-emerald-800 transition-all inline-block"
                 >
-                  Contact Us Now
-                </a>
+                  Get Involved Now
+                </Link>
               </div>
               <Users className="absolute -bottom-10 -right-10 w-64 h-64 text-emerald-100/50" />
             </motion.div>

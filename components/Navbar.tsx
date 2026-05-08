@@ -94,7 +94,7 @@ const Navbar = () => {
                   );
                 })}
                 <Link
-                  href="/contact"
+                  href="/get_involved"
                   className="ml-4 px-6 py-2.5 bg-[#4aa537] text-white text-sm font-bold rounded-full transition-all transform hover:scale-105"
                 >
                   Get Involved
@@ -163,7 +163,7 @@ const Navbar = () => {
                 );
               })}
               <Link
-                href="/contact"
+                href="/get_involved"
                 className="block px-3 py-4 text-base font-bold text-[#4aa537]"
                 onClick={() => setIsOpen(false)}
               >
