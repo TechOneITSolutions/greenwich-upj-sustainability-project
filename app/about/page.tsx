@@ -85,7 +85,7 @@ const team = [
   {
     name: "Dr. Nnedinma Umeokafor",
     role: "Project Lead (UK) & Principal Investigator",
-    img: "/images/team_mems/Dr. Nnedinma Umeokafor.png",
+    img: "/images/team_mems/Dr_Nnedinma.png",
     bio: `Dr. Nnedinma Umeokafor is an internationally recognised academic, researcher, and innovator in the fields of project management, construction management, occupational health and safety, and sustainable built environment development.
 
 He currently serves as Associate Professor in Project and Safety Innovations within the School of Engineering at the University of Greenwich, where his work focuses on advancing safer, more sustainable, and more effective approaches to project delivery, infrastructure development, and regulatory innovation.
@@ -111,10 +111,10 @@ He is a Fellow of the Higher Education Academy (FHEA), a Fellow of the Associati
 
 As Principal Investigator for the Greenwich-UPJ Sustainability Project, Dr. Umeokafor leads the strategic direction of the collaboration between the United Kingdom and Indonesia, supporting the project’s mission to strengthen sustainability-focused education, academic innovation, and international institutional partnership within the built environment sector.`,
   },
- {
+  {
     name: "Prof. Elisabeth Rukmini",
     role: "PARTNER INSTITUTION LEAD (Indonesia) & co-Principal Investigator",
-    where:"",
+    where: "",
     img: "/images/team_mems/Prof_Elisabeth.JPG",
     bio: `Prof. Elisabeth Rukmini is the Rector of Universitas Pembangunan Jaya and an experienced academic leader, educator, and researcher with extensive expertise in higher education development, strategic planning, educational innovation, and international collaboration.
 
@@ -136,24 +136,24 @@ Within the Greenwich-UPJ Sustainability Project, she serves as Co-Principal Inve
   {
     name: "Dr. Zaki Saptari Saldi",
     role: "Associate Professor and director of urban studies",
-    where:"(UPJ, Indonesia)",
+    where: "(UPJ, Indonesia)",
     img: "/images/team_mems/Dr_Zaki.jpg",
     bio: `Dr. Zaki Saptari Saldi is an academic and information technology practitioner with experience in software development, educational data analytics, and artificial intelligence–based research. He is actively involved in teaching, research, and the development of technology-driven systems to support the enhancement of learning quality.
 
 He is the Head of the Education Bureau at Universitas Pembangunan Jaya. He received his master’s degree from Universitas Indonesia and is currently pursuing her doctoral studies at Universiti Tun Hussein Onn Malaysia. His main area of expertise is software engineering, with research interests encompassing learning analytics and AI applications in education, and a current focus on technology‑enabled learning systems.`,
   },
- {
+  {
     name: "Dr. Safitri Jaya",
     role: "Head Of Education Bureau Institution ",
-    where:"(UPJ, Indonesia)",
-    img: "/images/team_mems/Dr. Safitri Jaya.png",
+    where: "(UPJ, Indonesia)",
+    img: "/images/team_mems/Dr_Safitri.png",
     bio: `Dr. Safitri Jaya is an academic and information technology practitioner with experience in software development, educational data analytics, and artificial intelligence–based research. She is actively involved in teaching, research, and the development of technology-driven systems to support the enhancement of learning quality. She is the Head of the Education Bureau at Universitas Pembangunan Jaya. She received her master’s degree from Universitas Indonesia and is currently pursuing her doctoral studies at Universiti Tun Hussein Onn Malaysia. Her main area of expertise is software engineering, with research interests encompassing learning analytics and AI applications in education, and a current focus on technology‑enabled learning systems.`,
   },
- 
+
   {
     name: "Okky Dharmosetio",
     role: "Business and institutional leader",
-    where:"(Indonesia)",
+    where: "(Indonesia)",
     img: "/images/team_member_1.png",
     bio: `Okky Dharmosetio is an Indonesian business and institutional leader associated with the Yayasan Pendidikan Jaya and the Pembangunan Jaya Group, organisations recognised for their longstanding contributions to education, urban development, infrastructure, and community advancement in Indonesia.
  
@@ -326,14 +326,14 @@ function ProfileModal({
         </div>
         <div className="flex-1 text-center md:text-left overflow-y-auto max-h-[60vh] pr-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
-             <h2 className=" text-3xl font-extrabold text-emerald-950 mb-2 leading-tight">
-            {member.name}
-          </h2>
-          <p className="text-[#4aa537] font-bold text-sm uppercase tracking-wide mb-4">
-            {member.role}
-          </p>
+            <h2 className=" text-3xl font-extrabold text-emerald-950 mb-2 leading-tight">
+              {member.name}
+            </h2>
+            <p className="text-[#4aa537] font-bold text-sm uppercase tracking-wide mb-4">
+              {member.role}
+            </p>
           </div>
-         
+
           <div className="h-px w-full bg-emerald-100 mb-6"></div>
           <p className="text-gray-600 leading-relaxed text-lg whitespace-pre-line">
             {member.bio}
@@ -442,8 +442,8 @@ export default function AboutPage() {
               Exploring How Future-Oriented Higher Education Can Respond to
               Sustainability Challenges
             </h2>
-           </motion.div>
-           </div>
+          </motion.div>
+        </div>
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div {...fi}>
             <div className="flex flex-col gap-4 text-lg text-gray-600 leading-relaxed">
@@ -469,12 +469,12 @@ export default function AboutPage() {
                 priorities instead of exporting a fixed model. Activities are
                 embedded within a formal institutional partnership framework.
               </p>
-            <button
-              onClick={() => setContactModal(true)}
-              className="mt-10 bg-emerald-950 text-white px-10 py-4 rounded-xl font-bold hover:bg-emerald-800 transition-all text-sm uppercase tracking-wider inline-block"
-            >
-              Find Out More
-            </button>
+              <button
+                onClick={() => setContactModal(true)}
+                className="mt-10 bg-emerald-950 text-white px-10 py-4 rounded-xl font-bold hover:bg-emerald-800 transition-all text-sm uppercase tracking-wider inline-block"
+              >
+                Find Out More
+              </button>
             </div>
           </motion.div>
           <motion.div
@@ -653,8 +653,9 @@ export default function AboutPage() {
                     <p key={i}>{p}</p>
                   ))}
                   <p className="mt-10 text-gray-500 italic text-lg border-l-4 border-[#4aa537] pl-6">
-                    &ldquo;Sustainable futures are built through collaboration, shared
-                    learning, and internationally connected education.&rdquo;
+                    &ldquo;Sustainable futures are built through collaboration,
+                    shared learning, and internationally connected
+                    education.&rdquo;
                   </p>
                 </motion.div>
               )}
@@ -755,13 +756,13 @@ export default function AboutPage() {
               Summary profiles of core team members of the Greenwich-UPJ Project
             </p>
           </motion.div>
-          <div className="flex  justify-center gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-5 gap-5 justify-items-center">
             {team.map((m, i) => (
               <motion.div
                 key={i}
                 {...fi}
                 transition={{ delay: i * 0.15, duration: 0.8 }}
-                className="bg-white rounded-[2rem] p-5 shadow-xl border border-gray-100 flex flex-col items-center text-center w-82"
+                className="w-full max-w-[28rem] bg-white rounded-[2rem] p-5 shadow-xl border border-gray-100 flex flex-col items-center text-center"
               >
                 <div className="relative w-20 h-20 rounded-full overflow-hidden mb-6 border-4 border-[#4aa537]/20 shadow-lg">
                   <Image
