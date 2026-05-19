@@ -20,6 +20,11 @@ type InsightData = {
   image_url: string;
 };
 
+const formatDate = (dateString: string) => {
+  const d = new Date(dateString);
+  return `${d.getUTCDate().toString().padStart(2, '0')}/${(d.getUTCMonth() + 1).toString().padStart(2, '0')}/${d.getUTCFullYear()}`;
+};
+
 function ArticleModal({ article, onClose }: { article: InsightData; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-[200] grid place-items-center p-4 sm:p-6" role="dialog" aria-modal="true">
@@ -47,7 +52,7 @@ function ArticleModal({ article, onClose }: { article: InsightData; onClose: () 
         </div>
         <div className="p-6 sm:p-10 overflow-y-auto overflow-x-hidden bg-gray-50 flex-1">
           <div className="flex items-center gap-4 mb-8 text-sm font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 pb-4">
-            <span className="text-[#4aa537]">{new Date(article.published_date).toLocaleDateString()}</span>
+            <span className="text-[#4aa537]">{formatDate(article.published_date)}</span>
             <span>•</span>
             <span>By Greenwich-UPJ Team</span>
           </div>
@@ -128,7 +133,7 @@ export default function InsightsClient({ insights }: { insights: InsightData[] }
                 </div>
                 <div className="p-8 flex flex-col flex-1">
                   <div className="text-xs font-extrabold text-[#4aa537] mb-4 uppercase tracking-widest">
-                    {new Date(news.published_date).toLocaleDateString()}
+                    {formatDate(news.published_date)}
                   </div>
                   <h3 className="text-2xl font-extrabold text-emerald-950 mb-4 line-clamp-2 leading-tight">
                     {news.title}

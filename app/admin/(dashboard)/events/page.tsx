@@ -40,7 +40,7 @@ export default async function EventsAdmin(props: {
             <thead className="bg-gray-50/80 border-b border-gray-100">
               <tr>
                 <th className="p-5 font-semibold text-gray-600 text-sm tracking-wide">Title</th>
-                <th className="p-5 font-semibold text-gray-600 text-sm tracking-wide">Date</th>
+                <th className="p-5 font-semibold text-gray-600 text-sm tracking-wide">Date &amp; Time</th>
                 <th className="p-5 font-semibold text-gray-600 text-sm tracking-wide">Location</th>
                 <th className="p-5 font-semibold text-gray-600 text-sm tracking-wide text-right">Actions</th>
               </tr>
@@ -50,8 +50,15 @@ export default async function EventsAdmin(props: {
                 <tr key={event.id} className="border-b border-gray-50 hover:bg-emerald-50/30 transition-colors group">
                   <td className="p-5 font-medium text-emerald-950">{event.title}</td>
                   <td className="p-5 text-gray-600">
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-gray-100 text-sm">
-                      {new Date(event.date).toLocaleDateString()}
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-100 text-sm flex-wrap">
+                      {(() => {
+                        const d = new Date(event.date);
+                        const fmt = (dt: Date) => `${dt.getUTCDate().toString().padStart(2,'0')}/${(dt.getUTCMonth()+1).toString().padStart(2,'0')}/${dt.getUTCFullYear()}`;
+                        return event.end_date
+                          ? `${fmt(d)} - ${fmt(new Date(event.end_date))}`
+                          : fmt(d);
+                      })()}
+                      {event.time && <span className="px-1.5 py-0.5 bg-gray-200/50 rounded text-xs">{event.time}</span>}
                     </span>
                   </td>
                   <td className="p-5 text-gray-600">{event.location}</td>
@@ -96,21 +103,36 @@ export default async function EventsAdmin(props: {
                 className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="space-y-2">
                 <label htmlFor="date" className="block text-sm font-semibold text-gray-700">
-                  Date <span className="text-red-400">*</span>
+                  Start Date <span className="text-red-400">*</span>
                 </label>
                 <input type="date" id="date" name="date" required 
                   className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
               </div>
               <div className="space-y-2">
-                <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
-                  Location <span className="text-red-400">*</span>
+                <label htmlFor="end_date" className="block text-sm font-semibold text-gray-700">
+                  End Date <span className="text-gray-400 font-normal ml-1">(Optional)</span>
                 </label>
-                <input type="text" id="location" name="location" required placeholder="e.g. UPJ Main Campus"
-                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+                <input type="date" id="end_date" name="end_date" 
+                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
               </div>
+              <div className="space-y-2 lg:col-span-2">
+                <label htmlFor="time" className="block text-sm font-semibold text-gray-700">
+                  Time <span className="text-gray-400 font-normal ml-1">(Optional)</span>
+                </label>
+                <input type="text" id="time" name="time" placeholder="e.g. 10:00 AM - 2:00 PM"
+                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
+                Location <span className="text-red-400">*</span>
+              </label>
+              <input type="text" id="location" name="location" required placeholder="e.g. UPJ Main Campus"
+                className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
             </div>
 
             <div className="space-y-2">
@@ -144,21 +166,36 @@ export default async function EventsAdmin(props: {
                 className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="space-y-2">
                 <label htmlFor="date" className="block text-sm font-semibold text-gray-700">
-                  Date <span className="text-red-400">*</span>
+                  Start Date <span className="text-red-400">*</span>
                 </label>
                 <input type="date" id="date" name="date" required defaultValue={editingEvent.date?.split('T')[0]}
                   className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
               </div>
               <div className="space-y-2">
-                <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
-                  Location <span className="text-red-400">*</span>
+                <label htmlFor="end_date" className="block text-sm font-semibold text-gray-700">
+                  End Date <span className="text-gray-400 font-normal ml-1">(Optional)</span>
                 </label>
-                <input type="text" id="location" name="location" required defaultValue={editingEvent.location}
-                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+                <input type="date" id="end_date" name="end_date" defaultValue={editingEvent.end_date?.split('T')[0]}
+                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
               </div>
+              <div className="space-y-2 lg:col-span-2">
+                <label htmlFor="time" className="block text-sm font-semibold text-gray-700">
+                  Time <span className="text-gray-400 font-normal ml-1">(Optional)</span>
+                </label>
+                <input type="text" id="time" name="time" placeholder="e.g. 10:00 AM - 2:00 PM" defaultValue={editingEvent.time}
+                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
+                Location <span className="text-red-400">*</span>
+              </label>
+              <input type="text" id="location" name="location" required defaultValue={editingEvent.location} placeholder="e.g. UPJ Main Campus"
+                className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
             </div>
 
             <div className="space-y-2">
@@ -171,8 +208,8 @@ export default async function EventsAdmin(props: {
               <label className="block text-sm font-semibold text-gray-700">Event Image</label>
               {editingEvent.image_url && (
                 <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50/50 inline-block">
-                  <div className="relative w-48 aspect-video">
-                    <Image src={editingEvent.image_url} alt={editingEvent.title} fill className="object-cover" />
+                  <div className="relative w-48 aspect-video bg-gray-100 flex items-center justify-center p-2">
+                    <Image src={editingEvent.image_url} alt={editingEvent.title} fill className="object-contain" />
                   </div>
                   <div className="px-4 py-2.5 bg-gray-50 border-t border-gray-100">
                     <p className="text-xs text-gray-400">Current image — upload a new one below to replace</p>

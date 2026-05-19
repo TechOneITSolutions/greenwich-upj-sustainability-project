@@ -90,6 +90,14 @@ export default async function GalleryAdmin(props: {
               <input type="text" id="title" name="title" required placeholder="e.g. Campus Solar Panel Installation"
                 className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
             </div>
+
+            <div className="space-y-2">
+              <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
+                Location
+              </label>
+              <input type="text" id="location" name="location" placeholder="e.g. Avery Hill Campus"
+                className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+            </div>
             
             <div className="space-y-2">
               <label className="block text-sm font-semibold text-gray-700">
@@ -111,18 +119,18 @@ export default async function GalleryAdmin(props: {
             <input type="hidden" name="id" value={editingPhoto.id} />
 
             <div className="space-y-3">
-              <label className="block text-sm font-semibold text-gray-700">Current Photo</label>
-              <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50/50 inline-block">
-                <div className={`relative w-56 aspect-video ${!editingPhoto.image_url ? 'bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center p-2' : ''}`}>
-                  {editingPhoto.image_url ? (
+              <label className="block text-sm font-semibold text-gray-700">Photo</label>
+              {editingPhoto.image_url && (
+                <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50/50 inline-block mb-2">
+                  <div className="relative w-56 aspect-video">
                     <Image src={editingPhoto.image_url} alt={editingPhoto.title} fill className="object-cover" />
-                  ) : (
-                    <div className="w-full h-full border border-emerald-500/20 rounded-xl flex items-center justify-center bg-white/50 p-2 text-center shadow-inner">
-                      <span className="text-emerald-900 font-medium text-xs line-clamp-3">{editingPhoto.title}</span>
-                    </div>
-                  )}
+                  </div>
+                  <div className="px-4 py-2 bg-gray-50 border-t border-gray-100">
+                    <p className="text-xs text-gray-400">Current photo — upload below to replace</p>
+                  </div>
                 </div>
-              </div>
+              )}
+              <ImageUploadPreview id="image" name="image" required={false} />
             </div>
 
             <div className="space-y-2">
@@ -130,6 +138,14 @@ export default async function GalleryAdmin(props: {
                 Title / Description <span className="text-red-400">*</span>
               </label>
               <input type="text" id="title" name="title" required defaultValue={editingPhoto.title}
+                className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
+                Location
+              </label>
+              <input type="text" id="location" name="location" defaultValue={editingPhoto.location} placeholder="e.g. Avery Hill Campus"
                 className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
             </div>
 

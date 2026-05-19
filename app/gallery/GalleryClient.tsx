@@ -6,11 +6,17 @@ import Image from "next/image";
 type GalleryData = {
   id: string;
   title: string;
+  location?: string;
   image_url: string;
   created_at: string;
 };
 
 export default function GalleryClient({ photos }: { photos: GalleryData[] }) {
+  const formatDate = (dateString: string) => {
+    const d = new Date(dateString);
+    return `${d.getUTCDate().toString().padStart(2, '0')}/${(d.getUTCMonth() + 1).toString().padStart(2, '0')}/${d.getUTCFullYear()}`;
+  };
+
   return (
     <div className="bg-white min-h-screen pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,16 +62,18 @@ export default function GalleryClient({ photos }: { photos: GalleryData[] }) {
                     <h3 className="text-white text-xl font-bold mb-1">
                       {img.title}
                     </h3>
-                    <p className="text-gray-400 text-sm">{new Date(img.created_at).toLocaleDateString()}</p>
+                    {img.location && <p className="text-emerald-400 text-sm font-medium mb-1">{img.location}</p>}
+                    <p className="text-gray-400 text-sm">{formatDate(img.created_at)}</p>
                   </div>
                 </>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full w-full relative z-10 transition-transform duration-700 group-hover:scale-105">
                   <div className="w-16 h-1 bg-emerald-400 rounded-full mb-6 opacity-50"></div>
-                  <h3 className="text-emerald-950 text-2xl md:text-3xl font-bold mb-4 leading-tight">
+                  <h3 className="text-emerald-950 text-2xl md:text-3xl font-bold mb-2 leading-tight">
                     {img.title}
                   </h3>
-                  <p className="text-emerald-700/60 text-sm font-medium tracking-wide uppercase">{new Date(img.created_at).toLocaleDateString()}</p>
+                  {img.location && <p className="text-emerald-600/80 text-sm font-semibold uppercase tracking-wider mb-2">{img.location}</p>}
+                  <p className="text-emerald-700/60 text-sm font-medium tracking-wide uppercase mt-2">{formatDate(img.created_at)}</p>
                 </div>
               )}
             </motion.div>

@@ -18,21 +18,36 @@ export default function ImageUploadPreview({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [fileName, setFileName] = useState<string | null>(null)
   const [dimensions, setDimensions] = useState<{ w: number; h: number } | null>(null)
+  const [error, setError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const MAX_SIZE_MB = 2;
+  const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+
+  const processFile = (file: File) => {
+    setError(null)
+    if (file.size > MAX_SIZE_BYTES) {
+      setError(`Image exceeds ${MAX_SIZE_MB}MB limit. Please choose a smaller file.`)
+      if (inputRef.current) inputRef.current.value = ''
+      return
+    }
+
+    setFileName(file.name)
+    const url = URL.createObjectURL(file)
+    setPreviewUrl(url)
+
+    // Read natural image dimensions for adaptive preview
+    const img = new window.Image()
+    img.onload = () => {
+      setDimensions({ w: img.naturalWidth, h: img.naturalHeight })
+    }
+    img.src = url
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      setFileName(file.name)
-      const url = URL.createObjectURL(file)
-      setPreviewUrl(url)
-
-      // Read natural image dimensions for adaptive preview
-      const img = new window.Image()
-      img.onload = () => {
-        setDimensions({ w: img.naturalWidth, h: img.naturalHeight })
-      }
-      img.src = url
+      processFile(file)
     } else {
       clearPreview()
     }
@@ -49,21 +64,18 @@ export default function ImageUploadPreview({
     e.preventDefault()
     const file = e.dataTransfer.files?.[0]
     if (file && file.type.startsWith('image/')) {
+      if (file.size > MAX_SIZE_BYTES) {
+        setError(`Image exceeds ${MAX_SIZE_MB}MB limit. Please choose a smaller file.`)
+        return
+      }
+
       const dt = new DataTransfer()
       dt.items.add(file)
       if (inputRef.current) {
         inputRef.current.files = dt.files
         inputRef.current.dispatchEvent(new Event('change', { bubbles: true }))
       }
-      setFileName(file.name)
-      const url = URL.createObjectURL(file)
-      setPreviewUrl(url)
-
-      const img = new window.Image()
-      img.onload = () => {
-        setDimensions({ w: img.naturalWidth, h: img.naturalHeight })
-      }
-      img.src = url
+      processFile(file)
     }
   }
 
@@ -116,7 +128,7 @@ export default function ImageUploadPreview({
               Click to upload or drag and drop
             </p>
             <p className="text-xs text-emerald-600/60 mt-1">
-              PNG, JPG, WEBP up to 10MB
+              PNG, JPG, WEBP up to 2MB
             </p>
           </div>
         </label>
@@ -158,6 +170,12 @@ export default function ImageUploadPreview({
             )}
           </div>
         </div>
+      )}
+
+      {error && (
+        <p className="text-sm font-medium text-red-500 mt-2 px-1 animate-in fade-in slide-in-from-top-1">
+          {error}
+        </p>
       )}
     </div>
   )

@@ -18,12 +18,43 @@ type EventData = {
   title: string;
   description: string;
   date: string;
+  end_date?: string;
+  time?: string;
   location: string;
   image_url: string;
 }
 
 export default function EventsClient({ upcomingevents, pastevents }: { upcomingevents: EventData[], pastevents: EventData[] }) {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
+
+  const getMonthShort = (dateString: string) => {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return months[new Date(dateString).getUTCMonth()];
+  };
+
+  const getMonthLong = (dateString: string) => {
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return months[new Date(dateString).getUTCMonth()];
+  };
+
+  const formatDateLong = (dateString: string) => {
+    const d = new Date(dateString);
+    return `${d.getUTCDate()} ${getMonthLong(dateString)} ${d.getUTCFullYear()}`;
+  };
+
+  const renderDateRange = (startDate: string, endDate?: string) => {
+    if (!endDate) return formatDateLong(startDate);
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    // If same month and year, just show days range (e.g. 19-21 May 2026)
+    if (start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear()) {
+      return `${start.getUTCDate()}-${end.getUTCDate()} ${getMonthLong(startDate)} ${start.getUTCFullYear()}`;
+    }
+    
+    // If different months, show full range (e.g. 19 May - 2 Jun 2026)
+    return `${start.getUTCDate()} ${getMonthShort(startDate)} - ${formatDateLong(endDate)}`;
+  };
 
   return (
     <div className="bg-white min-h-screen pb-24">
@@ -123,7 +154,6 @@ export default function EventsClient({ upcomingevents, pastevents }: { upcominge
                       transition={{ delay: i * 0.08 }}
                       className="bg-white rounded-[2rem] overflow-hidden flex flex-col shadow-sm border border-gray-100 group hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                     >
-                      {/* Card Image */}
                       <div className="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0">
                         <Image
                           src={evt.image_url || "/images/workshop.jpg"}
@@ -131,17 +161,19 @@ export default function EventsClient({ upcomingevents, pastevents }: { upcominge
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
                         <span className="absolute top-3 left-3 bg-[#4aa537] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
                           Upcoming
                         </span>
                         {/* Date badge on image */}
                         <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 text-center min-w-[56px] shadow">
                           <p className="text-[#4aa537] font-black text-xl leading-none">
-                            {new Date(evt.date).getDate()}
+                            {evt.end_date && new Date(evt.date).getUTCMonth() === new Date(evt.end_date).getUTCMonth() 
+                              ? `${new Date(evt.date).getUTCDate()}-${new Date(evt.end_date).getUTCDate()}`
+                              : new Date(evt.date).getUTCDate()}
                           </p>
                           <p className="text-gray-500 text-xs font-semibold uppercase">
-                            {new Date(evt.date).toLocaleDateString('en-GB', { month: 'short' })}
+                            {getMonthShort(evt.date)}
                           </p>
                         </div>
                       </div>
@@ -158,7 +190,11 @@ export default function EventsClient({ upcomingevents, pastevents }: { upcominge
                         <div className="space-y-2 text-xs text-gray-500 font-medium pt-1">
                           <div className="flex items-center gap-2">
                             <Calendar className="w-3.5 h-3.5 text-[#4aa537] flex-shrink-0" />
-                            <span>{new Date(evt.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                            <span>{renderDateRange(evt.date, evt.end_date)}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Clock className="w-3.5 h-3.5 text-[#4aa537] flex-shrink-0" />
+                            <span>{evt.time || 'TBD'}</span>
                           </div>
                           <div className="flex items-start gap-2">
                             <MapPin className="w-3.5 h-3.5 text-[#4aa537] flex-shrink-0 mt-0.5" />
@@ -213,7 +249,7 @@ export default function EventsClient({ upcomingevents, pastevents }: { upcominge
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
                         />
-                        <span className="absolute top-3 left-3 bg-gray-700/80 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full backdrop-blur-sm">
+                        <span className="absolute top-3 left-3 bg-gray-700/80 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full backdrop-blur-sm z-10">
                           Past
                         </span>
                       </div>
@@ -229,7 +265,11 @@ export default function EventsClient({ upcomingevents, pastevents }: { upcominge
                         <div className="space-y-3 text-sm text-gray-600 font-medium">
                           <div className="flex items-center gap-3">
                             <Calendar className="text-gray-400 w-4 h-4" />
-                            <span>{new Date(evt.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                            <span>{renderDateRange(evt.date, evt.end_date)}</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Clock className="text-gray-400 w-4 h-4" />
+                            <span>{evt.time || 'TBD'}</span>
                           </div>
                           <div className="flex items-start gap-3">
                             <MapPin className="text-gray-400 w-4 h-4 flex-shrink-0" />

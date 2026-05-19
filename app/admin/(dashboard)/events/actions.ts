@@ -9,6 +9,8 @@ export async function createEvent(formData: FormData) {
   
   const title = formData.get('title') as string
   const date = formData.get('date') as string
+  const end_date = formData.get('end_date') as string || null
+  const time = formData.get('time') as string
   const location = formData.get('location') as string
   const description = formData.get('description') as string
   const image = formData.get('image') as File | null
@@ -42,6 +44,8 @@ export async function createEvent(formData: FormData) {
   const { error: insertError } = await supabase.from('events').insert({
     title,
     date,
+    end_date,
+    time,
     location,
     description,
     image_url
@@ -72,11 +76,13 @@ export async function updateEvent(formData: FormData) {
   const id = formData.get('id') as string
   const title = formData.get('title') as string
   const date = formData.get('date') as string
+  const end_date = formData.get('end_date') as string || null
+  const time = formData.get('time') as string
   const location = formData.get('location') as string
   const description = formData.get('description') as string
   const image = formData.get('image') as File | null
 
-  const updates: Record<string, string | null> = { title, date, location, description }
+  const updates: Record<string, string | null> = { title, date, end_date, time, location, description }
 
   if (image && image.size > 0) {
     const fileExt = image.name.split('.').pop()

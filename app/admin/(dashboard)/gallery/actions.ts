@@ -8,6 +8,7 @@ export async function uploadPhoto(formData: FormData) {
   const supabase = await createClient()
   
   const title = formData.get('title') as string
+  const location = formData.get('location') as string
   const image = formData.get('image') as File | null
   
   let publicUrl = '';
@@ -38,6 +39,7 @@ export async function uploadPhoto(formData: FormData) {
   
   const { error: insertError } = await supabase.from('gallery').insert({
     title,
+    location,
     image_url: publicUrl
   })
   
@@ -74,8 +76,29 @@ export async function updatePhoto(formData: FormData) {
 
   const id = formData.get('id') as string
   const title = formData.get('title') as string
+  const location = formData.get('location') as string
+  const image = formData.get('image') as File | null
 
-  const { error } = await supabase.from('gallery').update({ title }).eq('id', id)
+  const updates: Record<string, string | null> = { title, location }
+
+  if (image && image.size > 0) {
+    const fileExt = image.name.split('.').pop()
+    const fileName = `${Math.random()}.${fileExt}`
+    const arrayBuffer = await image.arrayBuffer()
+    const buffer = Buffer.from(arrayBuffer)
+
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('images')
+      .upload(`gallery/${fileName}`, buffer, { contentType: image.type })
+
+    if (uploadError) throw new Error(`Storage Upload Failed: ${uploadError.message}`)
+    if (uploadData) {
+      const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(`gallery/${fileName}`)
+      updates.image_url = publicUrl
+    }
+  }
+
+  const { error } = await supabase.from('gallery').update(updates).eq('id', id)
   if (error) throw new Error(`Update Failed: ${error.message}`)
 
   revalidatePath('/gallery')
