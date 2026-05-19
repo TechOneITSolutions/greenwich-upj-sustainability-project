@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { updatePhoto } from '../../actions'
 import SubmitButton from '@/components/SubmitButton'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Save } from 'lucide-react'
 import Image from 'next/image'
 
 export default async function EditPhotoPage({ params }: { params: Promise<{ id: string }> }) {
@@ -14,38 +14,48 @@ export default async function EditPhotoPage({ params }: { params: Promise<{ id: 
   if (!photo) notFound()
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-3xl mx-auto">
+      {/* Header */}
       <div className="flex items-center gap-4 mb-8">
-        <Link href="/admin/gallery" className="text-gray-500 hover:text-emerald-700 transition-colors">
+        <Link href="/admin/gallery" className="p-2 rounded-xl text-gray-400 hover:text-emerald-700 hover:bg-emerald-50 transition-all">
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <h2 className="text-3xl font-bold text-emerald-950">Edit Photo</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-emerald-950">Edit Photo</h2>
+          <p className="text-sm text-gray-400 mt-0.5">Update the photo details</p>
+        </div>
       </div>
 
-      <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-        <form action={updatePhoto} className="space-y-6">
+      {/* Form Card */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="h-1.5 bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-400" />
+
+        <form action={updatePhoto} className="p-8 space-y-8">
           <input type="hidden" name="id" value={photo.id} />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Current Photo</label>
-            <div className="rounded-xl overflow-hidden border border-gray-200 w-64 aspect-video relative">
-              <Image src={photo.image_url} alt={photo.title} fill className="object-cover" />
+          {/* Current Photo Preview */}
+          <div className="space-y-3">
+            <label className="block text-sm font-semibold text-gray-700">Current Photo</label>
+            <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50/50 inline-block">
+              <div className="relative w-80 aspect-video">
+                <Image src={photo.image_url} alt={photo.title} fill className="object-cover" />
+              </div>
             </div>
           </div>
 
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title / Description</label>
+          {/* Title */}
+          <div className="space-y-2">
+            <label htmlFor="title" className="block text-sm font-semibold text-gray-700">
+              Title / Description <span className="text-red-400">*</span>
+            </label>
             <input type="text" id="title" name="title" required defaultValue={photo.title}
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-emerald-500 focus:border-emerald-500" />
+              className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
           </div>
 
-          <div className="flex justify-end gap-3 pt-4">
-            <Link href="/admin/gallery" className="px-6 py-2 rounded-md border border-gray-300 text-gray-600 hover:bg-gray-50 font-medium">
-              Cancel
-            </Link>
-            <SubmitButton className="bg-emerald-600 text-white px-6 py-2 rounded-md hover:bg-emerald-700 font-medium" loadingText="Saving...">
-              Save Changes
-            </SubmitButton>
+          {/* Divider + Actions */}
+          <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
+            <Link href="/admin/gallery" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">Cancel</Link>
+            <SubmitButton loadingText="Saving..." icon={<Save className="w-5 h-5" />}>Save Changes</SubmitButton>
           </div>
         </form>
       </div>

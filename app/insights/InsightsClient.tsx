@@ -45,14 +45,16 @@ function ArticleModal({ article, onClose }: { article: InsightData; onClose: () 
             </h2>
           </div>
         </div>
-        <div className="p-6 sm:p-10 overflow-y-auto bg-gray-50 flex-1">
+        <div className="p-6 sm:p-10 overflow-y-auto overflow-x-hidden bg-gray-50 flex-1">
           <div className="flex items-center gap-4 mb-8 text-sm font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 pb-4">
             <span className="text-[#4aa537]">{new Date(article.published_date).toLocaleDateString()}</span>
             <span>•</span>
             <span>By Greenwich-UPJ Team</span>
           </div>
-          <div className="prose prose-lg prose-emerald max-w-none text-gray-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: article.content }}>
-          </div>
+          <div
+            className="prose prose-lg prose-emerald max-w-none text-gray-700 leading-relaxed break-words [&_*]:max-w-full [&_img]:max-w-full [&_pre]:whitespace-pre-wrap [&_table]:block [&_table]:overflow-x-auto"
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
         </div>
       </motion.div>
     </div>

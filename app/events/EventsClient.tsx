@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Calendar, Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +23,8 @@ type EventData = {
 }
 
 export default function EventsClient({ upcomingevents, pastevents }: { upcomingevents: EventData[], pastevents: EventData[] }) {
+  const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
+
   return (
     <div className="bg-white min-h-screen pb-24">
       {/* Hero Section */}
@@ -43,7 +46,7 @@ export default function EventsClient({ upcomingevents, pastevents }: { upcominge
             transition={{ duration: 0.8 }}
           >
             <span className="inline-block bg-[#4aa537]/20 border border-[#4aa537]/40 text-[#4aa537] text-xs font-bold uppercase tracking-[0.2em] px-5 py-2 rounded-full mb-6">
-              Engagement & Collaboration
+              Engagement &amp; Collaboration
             </span>
             <h1 className="text-5xl md:text-7xl font-extrabold mb-6 drop-shadow-lg tracking-tight">
               Project Events
@@ -55,131 +58,201 @@ export default function EventsClient({ upcomingevents, pastevents }: { upcominge
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
 
-        {/* Upcoming Events Section */}
-        {upcomingevents.length > 0 && (
-          <section>
-            <motion.h2
-              {...fadeInUp}
-              className="text-4xl md:text-5xl font-extrabold text-emerald-950 mb-16"
+        {/* Tab Bar */}
+        <div className="flex items-center gap-2 mb-16 border-b border-gray-200">
+          <button
+            onClick={() => setActiveTab('upcoming')}
+            className={`relative px-8 py-4 text-base font-bold transition-all duration-200 ${
+              activeTab === 'upcoming'
+                ? 'text-[#4aa537]'
+                : 'text-gray-400 hover:text-gray-600'
+            }`}
+          >
+            Upcoming Events
+            <span className="ml-2 text-xs font-semibold bg-[#4aa537]/10 text-[#4aa537] px-2 py-0.5 rounded-full">
+              {upcomingevents.length}
+            </span>
+            {activeTab === 'upcoming' && (
+              <motion.div
+                layoutId="activeTab"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#4aa537] rounded-full"
+              />
+            )}
+          </button>
+
+          <button
+            onClick={() => setActiveTab('past')}
+            className={`relative px-8 py-4 text-base font-bold transition-all duration-200 ${
+              activeTab === 'past'
+                ? 'text-[#4aa537]'
+                : 'text-gray-400 hover:text-gray-600'
+            }`}
+          >
+            Past Events
+            <span className="ml-2 text-xs font-semibold bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">
+              {pastevents.length}
+            </span>
+            {activeTab === 'past' && (
+              <motion.div
+                layoutId="activeTab"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#4aa537] rounded-full"
+              />
+            )}
+          </button>
+        </div>
+
+        <AnimatePresence mode="wait">
+
+          {/* Upcoming Events Tab */}
+          {activeTab === 'upcoming' && (
+            <motion.div
+              key="upcoming"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.3 }}
             >
-              Upcoming Events
-            </motion.h2>
-
-            <div className="space-y-12">
-              {upcomingevents.map((evt, i) => (
-                <motion.div
-                  key={i}
-                  {...fadeInUp}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-[#f8f9fc] rounded-[2rem] overflow-hidden flex flex-col lg:flex-row p-6 md:p-8 gap-8 items-center shadow-sm border border-gray-100"
-                >
-                  {/* Event Image */}
-                  <div className="relative w-full lg:w-[320px] aspect-[4/5] rounded-[1.5rem] overflow-hidden shadow-2xl flex-shrink-0 group">
-                    <Image
-                      src={evt.image_url || "/images/workshop.jpg"}
-                      alt={evt.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  </div>
-
-                  {/* Event Details */}
-                  <div className="flex-1">
-                    <h3 className="text-3xl md:text-4xl font-extrabold text-emerald-950 mb-3 tracking-tight">
-                      {evt.title}
-                    </h3>
-                    <p className="text-[#4aa537] font-bold text-xl md:text-2xl mb-6 leading-tight">
-                      {evt.description}
-                    </p>
-
-                    <div className="space-y-4 text-gray-700 text-base md:text-lg mb-8 font-medium">
-                      <div className="flex items-start gap-4">
-                        <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0">
-                          <MapPin className="text-[#4aa537] w-5 h-5" />
-                        </div>
-                        <span>{evt.location}</span>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0">
-                          <Calendar className="text-[#4aa537] w-5 h-5" />
-                        </div>
-                        <span>{new Date(evt.date).toLocaleDateString()}</span>
-                      </div>
-                    </div>
-
-                    <Link
-                      href={"/contact"}
-                      className="inline-block bg-[#4aa537] text-white px-8 py-4 rounded-xl font-bold text-base md:text-lg hover:bg-emerald-700 transition-all hover:scale-105 shadow-xl shadow-emerald-200"
+              {upcomingevents.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {upcomingevents.map((evt, i) => (
+                    <motion.div
+                      key={evt.id}
+                      {...fadeInUp}
+                      transition={{ delay: i * 0.08 }}
+                      className="bg-white rounded-[2rem] overflow-hidden flex flex-col shadow-sm border border-gray-100 group hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                     >
-                      Register Now
-                    </Link>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-        )}
+                      {/* Card Image */}
+                      <div className="relative w-full aspect-[4/3] overflow-hidden flex-shrink-0">
+                        <Image
+                          src={evt.image_url || "/images/workshop.jpg"}
+                          alt={evt.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                        <span className="absolute top-3 left-3 bg-[#4aa537] text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                          Upcoming
+                        </span>
+                        {/* Date badge on image */}
+                        <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 text-center min-w-[56px] shadow">
+                          <p className="text-[#4aa537] font-black text-xl leading-none">
+                            {new Date(evt.date).getDate()}
+                          </p>
+                          <p className="text-gray-500 text-xs font-semibold uppercase">
+                            {new Date(evt.date).toLocaleDateString('en-GB', { month: 'short' })}
+                          </p>
+                        </div>
+                      </div>
 
-        {/* Past Events Section */}
-        {pastevents.length > 0 && (
-          <section className="mt-24">
-            <motion.h2
-              {...fadeInUp}
-              className="text-4xl md:text-5xl font-extrabold text-emerald-950 mb-16"
+                      {/* Card Body */}
+                      <div className="flex flex-col flex-1 p-5 gap-3">
+                        <h3 className="text-lg font-extrabold text-emerald-950 leading-snug line-clamp-2">
+                          {evt.title}
+                        </h3>
+                        <p className="text-gray-500 text-sm line-clamp-2 flex-1">
+                          {evt.description}
+                        </p>
+
+                        <div className="space-y-2 text-xs text-gray-500 font-medium pt-1">
+                          <div className="flex items-center gap-2">
+                            <Calendar className="w-3.5 h-3.5 text-[#4aa537] flex-shrink-0" />
+                            <span>{new Date(evt.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <MapPin className="w-3.5 h-3.5 text-[#4aa537] flex-shrink-0 mt-0.5" />
+                            <span className="line-clamp-1">{evt.location}</span>
+                          </div>
+                        </div>
+
+                        <Link
+                          href="/contact"
+                          className="mt-2 w-full text-center bg-[#4aa537] text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-emerald-700 transition-all hover:scale-[1.02] shadow-md shadow-emerald-100"
+                        >
+                          Register Now
+                        </Link>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-24">
+                  <div className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6">
+                    <Calendar className="w-10 h-10 text-emerald-300" />
+                  </div>
+                  <p className="text-2xl font-bold text-gray-400 mb-2">No upcoming events</p>
+                  <p className="text-gray-400">Check back soon — more events will be announced shortly!</p>
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {/* Past Events Tab */}
+          {activeTab === 'past' && (
+            <motion.div
+              key="past"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.3 }}
             >
-              Past Events
-            </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {pastevents.map((evt, i) => (
-                <motion.div
-                  key={i}
-                  {...fadeInUp}
-                  transition={{ delay: i * 0.1 }}
-                  className="bg-white rounded-[2rem] overflow-hidden flex flex-col p-6 gap-6 shadow-sm border border-gray-100 group hover:shadow-lg transition-all"
-                >
-                  <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-md flex-shrink-0">
-                    <Image
-                      src={evt.image_url || "/images/workshop.jpg"}
-                      alt={evt.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
-                    />
-                  </div>
-
-                  <div className="flex-1">
-                    <h3 className="text-xl md:text-2xl font-extrabold text-emerald-950 mb-2">
-                      {evt.title}
-                    </h3>
-                    <p className="text-gray-500 font-medium mb-4 text-sm md:text-base">
-                      {evt.description}
-                    </p>
-
-                    <div className="space-y-3 text-sm text-gray-600 font-medium">
-                      <div className="flex items-center gap-3">
-                        <Calendar className="text-gray-400 w-4 h-4" />
-                        <span>{new Date(evt.date).toLocaleDateString()}</span>
+              {pastevents.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {pastevents.map((evt, i) => (
+                    <motion.div
+                      key={evt.id}
+                      {...fadeInUp}
+                      transition={{ delay: i * 0.1 }}
+                      className="bg-white rounded-[2rem] overflow-hidden flex flex-col p-6 gap-6 shadow-sm border border-gray-100 group hover:shadow-lg transition-all"
+                    >
+                      <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-md flex-shrink-0">
+                        <Image
+                          src={evt.image_url || "/images/workshop.jpg"}
+                          alt={evt.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
+                        />
+                        <span className="absolute top-3 left-3 bg-gray-700/80 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full backdrop-blur-sm">
+                          Past
+                        </span>
                       </div>
-                      <div className="flex items-start gap-3">
-                        <MapPin className="text-gray-400 w-4 h-4 flex-shrink-0" />
-                        <span className="line-clamp-1">{evt.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-        )}
 
-        {upcomingevents.length === 0 && pastevents.length === 0 && (
-          <div className="text-center text-gray-500 text-xl py-24">
-            Check back later for upcoming events!
-          </div>
-        )}
+                      <div className="flex-1">
+                        <h3 className="text-xl md:text-2xl font-extrabold text-emerald-950 mb-2">
+                          {evt.title}
+                        </h3>
+                        <p className="text-gray-500 font-medium mb-4 text-sm md:text-base">
+                          {evt.description}
+                        </p>
+
+                        <div className="space-y-3 text-sm text-gray-600 font-medium">
+                          <div className="flex items-center gap-3">
+                            <Calendar className="text-gray-400 w-4 h-4" />
+                            <span>{new Date(evt.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                          </div>
+                          <div className="flex items-start gap-3">
+                            <MapPin className="text-gray-400 w-4 h-4 flex-shrink-0" />
+                            <span className="line-clamp-1">{evt.location}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-24">
+                  <div className="w-20 h-20 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-6">
+                    <Clock className="w-10 h-10 text-gray-300" />
+                  </div>
+                  <p className="text-2xl font-bold text-gray-400 mb-2">No past events yet</p>
+                  <p className="text-gray-400">Events that have already taken place will appear here.</p>
+                </div>
+              )}
+            </motion.div>
+          )}
+
+        </AnimatePresence>
       </div>
     </div>
   );

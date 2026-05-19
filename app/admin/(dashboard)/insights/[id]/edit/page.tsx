@@ -13,16 +13,24 @@ export default async function EditInsightPage({ params }: { params: Promise<{ id
   if (!insight) notFound()
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-4xl mx-auto">
+      {/* Header */}
       <div className="flex items-center gap-4 mb-8">
-        <Link href="/admin/insights" className="text-gray-500 hover:text-emerald-700 transition-colors">
+        <Link href="/admin/insights" className="p-2 rounded-xl text-gray-400 hover:text-emerald-700 hover:bg-emerald-50 transition-all">
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <h2 className="text-3xl font-bold text-emerald-950">Edit Article</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-emerald-950">Edit Article</h2>
+          <p className="text-sm text-gray-400 mt-0.5">Update the article content and details</p>
+        </div>
       </div>
 
-      <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-        <InsightEditForm insight={insight} updateAction={updateInsight} />
+      {/* Form Card */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="h-1.5 bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-400" />
+        <div className="p-8">
+          <InsightEditForm insight={insight} updateAction={updateInsight} />
+        </div>
       </div>
     </div>
   )

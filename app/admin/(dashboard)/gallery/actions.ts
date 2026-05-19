@@ -44,6 +44,7 @@ export async function uploadPhoto(formData: FormData) {
   }
 
   revalidatePath('/admin/gallery')
+  redirect('/admin/gallery')
 }
 
 export async function deletePhoto(id: string, imageUrl: string) {
