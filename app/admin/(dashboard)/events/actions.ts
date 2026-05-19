@@ -52,6 +52,8 @@ export async function createEvent(formData: FormData) {
       throw new Error(`Database Insert Failed: ${insertError.message}`);
   }
 
+  revalidatePath('/events')
+  revalidatePath('/')
   revalidatePath('/admin/events')
   redirect('/admin/events')
 }
@@ -59,6 +61,8 @@ export async function createEvent(formData: FormData) {
 export async function deleteEvent(id: string) {
   const supabase = await createClient()
   await supabase.from('events').delete().eq('id', id)
+  revalidatePath('/events')
+  revalidatePath('/')
   revalidatePath('/admin/events')
 }
 
@@ -94,6 +98,8 @@ export async function updateEvent(formData: FormData) {
   const { error } = await supabase.from('events').update(updates).eq('id', id)
   if (error) throw new Error(`Update Failed: ${error.message}`)
 
+  revalidatePath('/events')
+  revalidatePath('/')
   revalidatePath('/admin/events')
   redirect('/admin/events')
 }

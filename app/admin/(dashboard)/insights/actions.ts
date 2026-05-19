@@ -50,6 +50,8 @@ export async function createInsight(formData: FormData) {
       throw new Error(`Database Insert Failed: ${insertError.message}`);
   }
 
+  revalidatePath('/insights')
+  revalidatePath('/')
   revalidatePath('/admin/insights')
   redirect('/admin/insights')
 }
@@ -57,6 +59,8 @@ export async function createInsight(formData: FormData) {
 export async function deleteInsight(id: string) {
   const supabase = await createClient()
   await supabase.from('insights').delete().eq('id', id)
+  revalidatePath('/insights')
+  revalidatePath('/')
   revalidatePath('/admin/insights')
 }
 
@@ -91,6 +95,8 @@ export async function updateInsight(formData: FormData) {
   const { error } = await supabase.from('insights').update(updates).eq('id', id)
   if (error) throw new Error(`Update Failed: ${error.message}`)
 
+  revalidatePath('/insights')
+  revalidatePath('/')
   revalidatePath('/admin/insights')
   redirect('/admin/insights')
 }
