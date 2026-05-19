@@ -1,22 +1,41 @@
 import { createClient } from '@/utils/supabase/server'
 import { deleteMessage } from './actions'
 import DeleteButton from '@/components/DeleteButton'
-import { Mail, Clock, MessageSquareQuote } from 'lucide-react'
+import AdminTableFilter from '@/components/AdminTableFilter'
+import AdminPagination from '@/components/AdminPagination'
+import { Mail, Clock, MessageSquareQuote, SearchX } from 'lucide-react'
 
-export default async function MessagesAdmin() {
+export default async function MessagesAdmin(props: {
+  searchParams: Promise<{ query?: string, page?: string }>
+}) {
+  const searchParams = await props.searchParams
+  const query = searchParams.query || ''
+  const currentPage = Number(searchParams.page) || 1
+  const limit = 10
+  const offset = (currentPage - 1) * limit
+
   const supabase = await createClient()
-  const { data: messages } = await supabase.from('messages').select('*').order('created_at', { ascending: false })
+  let dbQuery = supabase.from('messages').select('*', { count: 'exact' })
+  if (query) {
+    dbQuery = dbQuery.or(`name.ilike.%${query}%,email.ilike.%${query}%,subject.ilike.%${query}%,message.ilike.%${query}%`)
+  }
+  const { data: messages, count } = await dbQuery.order('created_at', { ascending: false }).range(offset, offset + limit - 1)
+  
+  const totalPages = Math.ceil((count || 0) / limit)
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
         <div>
           <h2 className="text-3xl font-bold text-emerald-950">Messages</h2>
           <p className="text-gray-500 mt-2">Manage contact form submissions</p>
         </div>
-        <div className="bg-emerald-50 text-emerald-700 px-4 py-2 rounded-xl font-medium flex items-center gap-2 border border-emerald-100 shadow-sm">
-          <Mail className="w-4 h-4" />
-          <span>{messages?.length || 0} Total</span>
+        <div className="flex items-center gap-4 flex-wrap w-full sm:w-auto">
+          <AdminTableFilter placeholder="Search messages..." />
+          <div className="bg-emerald-50 text-emerald-700 px-4 py-2.5 rounded-xl font-medium flex items-center gap-2 border border-emerald-100 shadow-sm shrink-0">
+            <Mail className="w-5 h-5" />
+            <span>{count || 0} Total</span>
+          </div>
         </div>
       </div>
 
@@ -40,7 +59,13 @@ export default async function MessagesAdmin() {
                     <span className="text-gray-300">|</span>
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-4 h-4" />
-                      {new Date(msg.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      {(() => {
+                        const d = new Date(msg.created_at);
+                        const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                        const hh = d.getUTCHours().toString().padStart(2,'0');
+                        const mm = d.getUTCMinutes().toString().padStart(2,'0');
+                        return `${d.getUTCDate()} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}, ${hh}:${mm}`;
+                      })()}
                     </span>
                   </div>
                   <div className="relative pl-4 border-l-2 border-emerald-100">
@@ -68,12 +93,22 @@ export default async function MessagesAdmin() {
           ))}
         </div>
       ) : (
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+        <div className="p-16 text-center bg-white rounded-2xl border-2 border-dashed border-gray-200">
           <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
-            <Mail className="w-8 h-8 text-emerald-300" />
+            {query ? <SearchX className="w-8 h-8 text-emerald-300" /> : <Mail className="w-8 h-8 text-emerald-300" />}
           </div>
-          <p className="text-xl font-bold text-gray-400 mb-2">No messages yet</p>
-          <p className="text-gray-400">Messages from the contact form will appear here.</p>
+          <p className="text-gray-500 font-medium text-lg">
+            {query ? 'No messages found' : 'No messages yet'}
+          </p>
+          <p className="text-gray-400 mt-1">
+            {query ? `No results matching "${query}"` : 'When someone fills out the contact form, it will appear here.'}
+          </p>
+        </div>
+      )}
+
+      {messages && messages.length > 0 && (
+        <div className="mt-6">
+          <AdminPagination totalPages={totalPages} currentPage={currentPage} />
         </div>
       )}
     </div>

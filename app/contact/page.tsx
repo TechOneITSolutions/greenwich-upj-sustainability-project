@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, MessageSquare, Send, CheckCircle, Loader2 } from "lucide-react";
+import { Mail, MapPin, MessageSquare, Send, CheckCircle, Loader2 } from "lucide-react";
 import { useState, useRef } from "react";
 import { submitContactMessage } from "./actions";
 

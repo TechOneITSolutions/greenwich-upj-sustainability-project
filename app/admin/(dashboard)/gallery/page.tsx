@@ -4,32 +4,50 @@ import SubmitButton from '@/components/SubmitButton'
 import DeleteButton from '@/components/DeleteButton'
 import ImageUploadPreview from '@/components/ImageUploadPreview'
 import Modal from '@/components/Modal'
-import { Upload, Edit, ImagePlus, Save } from 'lucide-react'
+import AdminTableFilter from '@/components/AdminTableFilter'
+import AdminPagination from '@/components/AdminPagination'
+import { Upload, Edit, ImagePlus, Save, Tag } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default async function GalleryAdmin(props: {
-  searchParams: Promise<{ action?: string, id?: string }>
+  searchParams: Promise<{ action?: string, id?: string, query?: string, page?: string }>
 }) {
   const searchParams = await props.searchParams
-  const supabase = await createClient()
-  const { data: photos } = await supabase.from('gallery').select('*').order('created_at', { ascending: false })
-
   const isNew = searchParams.action === 'new'
   const editId = searchParams.action === 'edit' ? searchParams.id : null
+  const query = searchParams.query || ''
+  const currentPage = Number(searchParams.page) || 1
+  const limit = 9 // Use 9 for 3-column grid
+  const offset = (currentPage - 1) * limit
+
+  const supabase = await createClient()
+  let dbQuery = supabase.from('gallery').select('*', { count: 'exact' })
+  if (query) {
+    dbQuery = dbQuery.or(`title.ilike.%${query}%,location.ilike.%${query}%,category.ilike.%${query}%`)
+  }
+  const { data: photos, count } = await dbQuery.order('created_at', { ascending: false }).range(offset, offset + limit - 1)
+  
+  const totalPages = Math.ceil((count || 0) / limit)
+
+  const CATEGORIES = ['Workshops', 'Meetings', 'Fieldwork']
+
   const editingPhoto = editId && photos ? photos.find(p => p.id === editId) : null
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
         <div>
           <h2 className="text-3xl font-bold text-emerald-950">Photo Gallery</h2>
           <p className="text-gray-500 mt-2">Manage your gallery images</p>
         </div>
-        <Link href="?action=new" scroll={false} className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white px-5 py-2.5 rounded-xl hover:from-emerald-700 hover:to-emerald-800 font-semibold shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/30 flex items-center gap-2 transition-all hover:scale-[1.02]">
-          <Upload className="w-5 h-5" />
-          Upload Photo
-        </Link>
+        <div className="flex items-center gap-4 flex-wrap w-full sm:w-auto">
+          <AdminTableFilter placeholder="Search gallery..." />
+          <Link href="?action=new" scroll={false} className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white px-5 py-2.5 rounded-xl hover:from-emerald-700 hover:to-emerald-800 font-semibold shadow-lg shadow-emerald-600/20 hover:shadow-emerald-600/30 flex items-center gap-2 transition-all hover:scale-[1.02] shrink-0">
+            <Upload className="w-5 h-5" />
+            Upload Photo
+          </Link>
+        </div>
       </div>
 
       {/* Gallery Grid */}
@@ -51,8 +69,15 @@ export default async function GalleryAdmin(props: {
                 </div>
               )}
             </div>
-            <div className="p-4 flex justify-between items-center">
-              <p className="font-medium text-emerald-950 truncate pr-4">{photo.title}</p>
+            <div className="p-4 flex justify-between items-start">
+              <div className="min-w-0 pr-3">
+                <p className="font-medium text-emerald-950 truncate">{photo.title}</p>
+                {photo.category && (
+                  <span className="inline-flex items-center gap-1 mt-1 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full">
+                    <Tag className="w-3 h-3" />{photo.category}
+                  </span>
+                )}
+              </div>
               <div className="flex items-center gap-1.5">
                 <Link href={`?action=edit&id=${photo.id}`} scroll={false}
                   className="text-gray-400 hover:text-emerald-600 p-2 rounded-xl hover:bg-emerald-50 transition-all">
@@ -73,10 +98,16 @@ export default async function GalleryAdmin(props: {
             <div className="w-16 h-16 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
               <ImagePlus className="w-8 h-8 text-emerald-300" />
             </div>
-            <p className="text-gray-500 font-medium text-lg">No photos yet</p>
-            <p className="text-gray-400 mt-1">Click "Upload Photo" above to add your first one.</p>
+            <p className="text-gray-500 font-medium text-lg">No photos found</p>
+            <p className="text-gray-400 mt-1">
+              {query ? `No photos matching "${query}"` : 'Click "Upload Photo" above to add your first one.'}
+            </p>
           </div>
         )}
+      </div>
+
+      <div className="mt-8">
+        <AdminPagination totalPages={totalPages} currentPage={currentPage} />
       </div>
 
       {/* MODALS */}
@@ -91,12 +122,24 @@ export default async function GalleryAdmin(props: {
                 className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
-                Location
-              </label>
-              <input type="text" id="location" name="location" placeholder="e.g. Avery Hill Campus"
-                className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
+                  Location
+                </label>
+                <input type="text" id="location" name="location" placeholder="e.g. Avery Hill Campus"
+                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="category" className="block text-sm font-semibold text-gray-700">
+                  Category
+                </label>
+                <select id="category" name="category"
+                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white">
+                  <option value="">— No category —</option>
+                  {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
             </div>
             
             <div className="space-y-2">
@@ -141,12 +184,24 @@ export default async function GalleryAdmin(props: {
                 className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
-                Location
-              </label>
-              <input type="text" id="location" name="location" defaultValue={editingPhoto.location} placeholder="e.g. Avery Hill Campus"
-                className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label htmlFor="location" className="block text-sm font-semibold text-gray-700">
+                  Location
+                </label>
+                <input type="text" id="location" name="location" defaultValue={editingPhoto.location} placeholder="e.g. Avery Hill Campus"
+                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 placeholder:text-gray-300 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white" />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="category" className="block text-sm font-semibold text-gray-700">
+                  Category
+                </label>
+                <select id="category" name="category" defaultValue={editingPhoto.category ?? ''}
+                  className="block w-full border border-gray-200 rounded-xl shadow-sm px-4 py-3 text-gray-900 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-gray-50/50 hover:bg-white">
+                  <option value="">— No category —</option>
+                  {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
             </div>
 
             <div className="pt-4 flex items-center justify-end">

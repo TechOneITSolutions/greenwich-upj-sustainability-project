@@ -9,6 +9,7 @@ export async function uploadPhoto(formData: FormData) {
   
   const title = formData.get('title') as string
   const location = formData.get('location') as string
+  const category = formData.get('category') as string
   const image = formData.get('image') as File | null
   
   let publicUrl = '';
@@ -40,6 +41,7 @@ export async function uploadPhoto(formData: FormData) {
   const { error: insertError } = await supabase.from('gallery').insert({
     title,
     location,
+    category,
     image_url: publicUrl
   })
   
@@ -77,9 +79,10 @@ export async function updatePhoto(formData: FormData) {
   const id = formData.get('id') as string
   const title = formData.get('title') as string
   const location = formData.get('location') as string
+  const category = formData.get('category') as string
   const image = formData.get('image') as File | null
 
-  const updates: Record<string, string | null> = { title, location }
+  const updates: Record<string, string | null> = { title, location, category }
 
   if (image && image.size > 0) {
     const fileExt = image.name.split('.').pop()
