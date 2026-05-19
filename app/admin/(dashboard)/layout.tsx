@@ -1,7 +1,5 @@
-import Link from 'next/link'
-import { Calendar, FileText, Image as ImageIcon, LogOut, LayoutDashboard } from 'lucide-react'
-import { logout } from '../login/actions'
 import { createClient } from '@/utils/supabase/server'
+import AdminNav from '@/components/AdminNav'
 
 export default async function AdminLayout({
   children,
@@ -26,32 +24,9 @@ export default async function AdminLayout({
             </p>
           )}
         </div>
-        <nav className="flex-1 px-4 space-y-2 mt-4 overflow-y-auto">
-          <Link href="/admin" suppressHydrationWarning className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-emerald-900 transition-colors">
-            <LayoutDashboard className="w-5 h-5" />
-            Dashboard
-          </Link>
-          <Link href="/admin/events" suppressHydrationWarning className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-emerald-900 transition-colors">
-            <Calendar className="w-5 h-5" />
-            Events
-          </Link>
-          <Link href="/admin/insights" suppressHydrationWarning className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-emerald-900 transition-colors">
-            <FileText className="w-5 h-5" />
-            Insights
-          </Link>
-          <Link href="/admin/gallery" suppressHydrationWarning className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-emerald-900 transition-colors">
-            <ImageIcon className="w-5 h-5" />
-            Gallery
-          </Link>
-        </nav>
-        <div className="p-4 border-t border-emerald-900">
-          <form action={logout}>
-            <button type="submit" className="flex items-center gap-3 px-4 py-3 w-full text-left rounded-xl hover:bg-emerald-900 transition-colors text-red-300 hover:text-red-200">
-              <LogOut className="w-5 h-5" />
-              Sign Out
-            </button>
-          </form>
-        </div>
+
+        {/* Client nav with loading states */}
+        <AdminNav />
       </aside>
 
       {/* Main Content */}

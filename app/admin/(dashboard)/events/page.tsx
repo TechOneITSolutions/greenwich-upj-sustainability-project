@@ -35,6 +35,9 @@ export default async function EventsAdmin() {
                 <td className="p-4 text-gray-600">{new Date(event.date).toLocaleDateString()}</td>
                 <td className="p-4 text-gray-600">{event.location}</td>
                 <td className="p-4 flex justify-end gap-3">
+                  <Link href={`/admin/events/${event.id}/edit`} className="text-emerald-600 hover:text-emerald-800">
+                    <Edit className="w-5 h-5" />
+                  </Link>
                   <form action={async () => {
                     'use server'
                     await deleteEvent(event.id)

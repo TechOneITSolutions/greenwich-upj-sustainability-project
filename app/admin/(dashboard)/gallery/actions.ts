@@ -2,6 +2,7 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
 export async function uploadPhoto(formData: FormData) {
   const supabase = await createClient()
@@ -55,4 +56,17 @@ export async function deletePhoto(id: string, imageUrl: string) {
   await supabase.from('gallery').delete().eq('id', id)
   
   revalidatePath('/admin/gallery')
+}
+
+export async function updatePhoto(formData: FormData) {
+  const supabase = await createClient()
+
+  const id = formData.get('id') as string
+  const title = formData.get('title') as string
+
+  const { error } = await supabase.from('gallery').update({ title }).eq('id', id)
+  if (error) throw new Error(`Update Failed: ${error.message}`)
+
+  revalidatePath('/admin/gallery')
+  redirect('/admin/gallery')
 }

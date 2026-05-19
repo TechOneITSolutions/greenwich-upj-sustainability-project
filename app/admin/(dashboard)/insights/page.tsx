@@ -33,6 +33,9 @@ export default async function InsightsAdmin() {
                 <td className="p-4 font-medium text-emerald-950">{insight.title}</td>
                 <td className="p-4 text-gray-600">{new Date(insight.published_date).toLocaleDateString()}</td>
                 <td className="p-4 flex justify-end gap-3">
+                  <Link href={`/admin/insights/${insight.id}/edit`} className="text-emerald-600 hover:text-emerald-800">
+                    <Edit className="w-5 h-5" />
+                  </Link>
                   <form action={async () => {
                     'use server'
                     await deleteInsight(insight.id)

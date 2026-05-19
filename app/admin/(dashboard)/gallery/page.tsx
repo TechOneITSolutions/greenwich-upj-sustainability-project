@@ -3,7 +3,8 @@ import { deletePhoto, uploadPhoto } from './actions'
 import SubmitButton from '@/components/SubmitButton'
 import DeleteButton from '@/components/DeleteButton'
 import ImageUploadPreview from '@/components/ImageUploadPreview'
-import { Trash2, Upload } from 'lucide-react'
+import { Trash2, Upload, Edit } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function GalleryAdmin() {
   const supabase = await createClient()
@@ -40,12 +41,17 @@ export default async function GalleryAdmin() {
             </div>
             <div className="p-4 flex justify-between items-center">
               <p className="font-medium text-emerald-950 truncate pr-4">{photo.title}</p>
-              <form action={async () => {
-                'use server'
-                await deletePhoto(photo.id, photo.image_url)
-              }}>
-                <DeleteButton className="bg-red-500/80 hover:bg-red-600 text-white p-2 rounded-full transition-colors" />
-              </form>
+              <div className="flex items-center gap-2">
+                <Link href={`/admin/gallery/${photo.id}/edit`} className="text-emerald-600 hover:text-emerald-800 p-2 rounded-full hover:bg-emerald-50 transition-colors">
+                  <Edit className="w-5 h-5" />
+                </Link>
+                <form action={async () => {
+                  'use server'
+                  await deletePhoto(photo.id, photo.image_url)
+                }}>
+                  <DeleteButton className="bg-red-500/80 hover:bg-red-600 text-white p-2 rounded-full transition-colors" />
+                </form>
+              </div>
             </div>
           </div>
         ))}
