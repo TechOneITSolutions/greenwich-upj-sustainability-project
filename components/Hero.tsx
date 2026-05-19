@@ -1,7 +1,38 @@
+"use client";
+
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
+const slides = [
+  {
+    title: "Advancing Sustainability in Built Environment Education through International Collaboration",
+    description: "Join our team from Greenwich University, London and Universitas Pembangunan Jaya (Indonesia) as we seek to strengthen capacity in sustainable built environment education.",
+    cta: "About the Project",
+    link: "/about",
+  },
+  {
+    title: "Shaping the future of Sustainability-focused Higher Education in the Built Environment",
+    description: "Strengthening institutional and staff capacity in delivering sustainability focused, internationally oriented education through effective partnership between academia and industry stakeholders.",
+    cta: "Find Out More",
+    link: "/about",
+  },
+];
+
 const Hero = () => {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 10000); // 10 seconds for readability
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="relative h-[90vh] min-h-[600px] flex items-center overflow-hidden bg-black">
-      {/* Video Background */}
+    <section className="relative h-[600px] bg-black flex items-center overflow-hidden">
+      {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
@@ -10,52 +41,80 @@ const Hero = () => {
           playsInline
           className="w-full h-full object-cover opacity-60"
         >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" type="video/mp4" />
-         
+          <source src="/video/bgimage.mp4" type="video/mp4" />
         </video>
-        {/* Dark Overlay with Green Tint */}
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-emerald-950/40 to-emerald-950/90 z-10" />
+        {/* Modern multi-stop gradient for depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/90 via-emerald-950/40 to-emerald-950/95 z-10" />
       </div>
 
-      <div className="relative z-20 mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-8 duration-1000">
-          <div className="flex items-center space-x-4 mb-8">
-            <span className="h-px w-12 bg-emerald-400"></span>
-            <span className="text-emerald-400 font-bold uppercase tracking-[0.2em] text-xs">
-              Sustainability • Innovation • Collaboration
-            </span>
-          </div>
-          <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-7xl mb-8 leading-[1.1]">
-            Sustainable Built <br />
-            <span className="text-emerald-400">Environment</span> <br />
-            Collaboration
-          </h1>
-          <p className="text-xl leading-8 text-emerald-50/90 max-w-xl mb-12">
-            Driving the future of green urban infrastructure through a strategic partnership between the UK and Indonesia.
-          </p>
-          <div className="flex flex-col sm:flex-row items-start gap-6">
-            <a
-              href="#about"
-              className="rounded-full bg-emerald-500 px-10 py-4 text-sm font-bold text-white shadow-lg hover:bg-emerald-400 transition-all transform hover:-translate-y-1"
-            >
-              Discover Our Impact
-            </a>
-            <a href="#" className="flex items-center text-sm font-bold leading-6 text-white group">
-              <span className="border-b-2 border-emerald-500 pb-1 group-hover:border-white transition-all">View Research Gallery</span>
-              <svg className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-          </div>
+      <div className="relative z-20 mx-auto max-w-7xl px-6 w-full pt-10">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current}
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -50, opacity: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="flex items-center mb-5">
+              <motion.span 
+                initial={{ width: 0 }}
+                animate={{ width: 60 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+                className="h-1 bg-[#4aa537] inline-block rounded-full"
+              ></motion.span>
+              <span className="text-white font-bold uppercase text-xs md:text-sm ml-8">
+                Innovation • Sustainability • Global Collaboration
+              </span>
+            </div>
+            
+            <h1 className="text-2xl md:text-3xl lg:text-5xl font-black tracking-tight leading-tight text-white mb-5 max-w-6xl drop-shadow-2xl">
+              {slides[current].title}
+            </h1>
+            
+            <p className="text-lg md:text-xl lg:text-xl text-emerald-50/70 max-w-4xl mb-12 font-medium">
+              {slides[current].description}
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-start gap-6">
+              <Link
+                href={slides[current].link}
+                className="group relative rounded-full bg-white px-6 py-3 text-lg md:text-xl font-bold text-emerald-950 shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-2 transition-all duration-500 flex items-center gap-4"
+              >
+                {slides[current].cta}
+                <div className="bg-[#4aa537] p-2 rounded-full text-white group-hover:translate-x-2 transition-transform duration-500">
+                    <ArrowRight size={24} />
+                </div>
+              </Link>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Modern Pagination Indicators */}
+        <div className="absolute bottom-16 left-6 flex items-center gap-6">
+            {slides.map((_, i) => (
+                <button
+                    key={i}
+                    onClick={() => setCurrent(i)}
+                    className="group relative flex items-center py-4"
+                >
+                    <span className={`text-xs font-black mr-3 transition-colors duration-500 ${current === i ? "text-white" : "text-white/30"}`}>
+                        0{i + 1}
+                    </span>
+                    <div className={`h-1.5 transition-all duration-700 rounded-full ${
+                        current === i ? "w-24 bg-[#4aa537]" : "w-12 bg-white/20 group-hover:bg-white/40"
+                    }`} />
+                </button>
+            ))}
         </div>
       </div>
-      
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 animate-bounce">
-        <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </div>
+
+      {/* Side Decorative Element */}
+      {/* <div className="absolute right-0 bottom-0 p-12 hidden lg:block opacity-20">
+          <div className="text-white font-black text-[12rem] leading-none select-none">
+              G-UPJ
+          </div>
+      </div> */}
     </section>
   );
 };
