@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Calendar, FileText, Image as ImageIcon, Loader2, LayoutDashboard, LogOut, MessageSquare, BookOpen } from 'lucide-react'
+import { Calendar, FileText, Image as ImageIcon, Loader2, LayoutDashboard, LogOut, MessageSquare, BookOpen, Users } from 'lucide-react'
 import { logout } from '@/app/admin/login/actions'
 
 const navItems = [
@@ -13,6 +13,7 @@ const navItems = [
   { href: '/admin/gallery', label: 'Gallery', icon: ImageIcon },
   { href: '/admin/messages', label: 'Messages', icon: MessageSquare },
   { href: '/admin/tutorials', label: 'Tutorials', icon: BookOpen },
+  { href: '/admin/users', label: 'Users', icon: Users },
 ]
 
 export default function AdminNav() {
