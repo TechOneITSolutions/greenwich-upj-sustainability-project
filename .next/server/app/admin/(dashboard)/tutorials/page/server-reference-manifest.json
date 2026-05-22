@@ -1,0 +1,17 @@
+{
+  "node": {
+    "007fd2f7707c6f271ce1c64a2509b5537e59deb5f0": {
+      "workers": {
+        "app/admin/(dashboard)/tutorials/page": {
+          "moduleId": 57990,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+        }
+      },
+      "exportedName": "logout",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+    }
+  },
+  "edge": {}
+}

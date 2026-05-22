@@ -1,0 +1,3 @@
+module.exports=[2489,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(35539);a.n(d("[project]/Desktop/TechOne/Dev/greenwich-upj-sustainability-project/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},30311,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(35539);a.n(d("[project]/Desktop/TechOne/Dev/greenwich-upj-sustainability-project/node_modules/next/dist/client/components/builtin/global-error.js"))},76928,a=>{"use strict";a.i(2489);var b=a.i(30311);a.n(b)},21307,a=>{a.n(a.i(76928))}];
+
+//# sourceMappingURL=05tt_next_dist_client_components_builtin_global-error_0_kre0j.js.map

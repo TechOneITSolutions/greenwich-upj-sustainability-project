@@ -1,0 +1,23 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/admin/(dashboard)/events/[id]/edit/page": "/admin/events/[id]/edit",
+  "/admin/(dashboard)/events/page": "/admin/events",
+  "/admin/(dashboard)/gallery/[id]/edit/page": "/admin/gallery/[id]/edit",
+  "/admin/(dashboard)/gallery/page": "/admin/gallery",
+  "/admin/(dashboard)/insights/[id]/edit/page": "/admin/insights/[id]/edit",
+  "/admin/(dashboard)/insights/page": "/admin/insights",
+  "/admin/(dashboard)/messages/page": "/admin/messages",
+  "/admin/(dashboard)/page": "/admin",
+  "/admin/(dashboard)/tutorials/page": "/admin/tutorials",
+  "/admin/(dashboard)/users/page": "/admin/users",
+  "/admin/login/page": "/admin/login",
+  "/contact/page": "/contact",
+  "/events/page": "/events",
+  "/favicon.ico/route": "/favicon.ico",
+  "/gallery/page": "/gallery",
+  "/get_involved/page": "/get_involved",
+  "/insights/page": "/insights",
+  "/page": "/"
+}

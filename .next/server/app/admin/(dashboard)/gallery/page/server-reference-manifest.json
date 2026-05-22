@@ -1,0 +1,65 @@
+{
+  "node": {
+    "007fd2f7707c6f271ce1c64a2509b5537e59deb5f0": {
+      "workers": {
+        "app/admin/(dashboard)/gallery/page": {
+          "moduleId": 16108,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+        }
+      },
+      "exportedName": "logout",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+    },
+    "4005db29b028bee9d7be43466f1a054dc1915715c1": {
+      "workers": {
+        "app/admin/(dashboard)/gallery/page": {
+          "moduleId": 16108,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/gallery/page.tsx"
+        }
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/gallery/page.tsx"
+    },
+    "40428c60c0f4ff2cf667166dca6444ada2a41867e3": {
+      "workers": {
+        "app/admin/(dashboard)/gallery/page": {
+          "moduleId": 16108,
+          "async": false,
+          "exportedName": "uploadPhoto",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/gallery/actions.ts"
+        }
+      },
+      "exportedName": "uploadPhoto",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/gallery/actions.ts"
+    },
+    "40fb78d2299a100b8acc96f1befbecbc35c232626a": {
+      "workers": {
+        "app/admin/(dashboard)/gallery/page": {
+          "moduleId": 16108,
+          "async": false,
+          "exportedName": "updatePhoto",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/gallery/actions.ts"
+        }
+      },
+      "exportedName": "updatePhoto",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/gallery/actions.ts"
+    },
+    "6090df1ef542e6b92c701010c0833669d2e7e2cf5c": {
+      "workers": {
+        "app/admin/(dashboard)/gallery/page": {
+          "moduleId": 16108,
+          "async": false,
+          "exportedName": "deletePhoto",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/gallery/actions.ts"
+        }
+      },
+      "exportedName": "deletePhoto",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/gallery/actions.ts"
+    }
+  },
+  "edge": {}
+}

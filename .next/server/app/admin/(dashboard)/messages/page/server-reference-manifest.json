@@ -1,0 +1,41 @@
+{
+  "node": {
+    "007fd2f7707c6f271ce1c64a2509b5537e59deb5f0": {
+      "workers": {
+        "app/admin/(dashboard)/messages/page": {
+          "moduleId": 32403,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+        }
+      },
+      "exportedName": "logout",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+    },
+    "40a6d0b0d2f8ec9374ae135c4e28419c27d17e05e9": {
+      "workers": {
+        "app/admin/(dashboard)/messages/page": {
+          "moduleId": 32403,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/messages/page.tsx"
+        }
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/messages/page.tsx"
+    },
+    "40b24723d5d4bea0eff9ebc08bd046001495c82e16": {
+      "workers": {
+        "app/admin/(dashboard)/messages/page": {
+          "moduleId": 32403,
+          "async": false,
+          "exportedName": "deleteMessage",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/messages/actions.ts"
+        }
+      },
+      "exportedName": "deleteMessage",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/messages/actions.ts"
+    }
+  },
+  "edge": {}
+}

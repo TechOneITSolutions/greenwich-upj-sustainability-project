@@ -1,0 +1,23 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/admin/(dashboard)/events/[id]/edit/page": "app/admin/(dashboard)/events/[id]/edit/page.js",
+  "/admin/(dashboard)/events/page": "app/admin/(dashboard)/events/page.js",
+  "/admin/(dashboard)/gallery/[id]/edit/page": "app/admin/(dashboard)/gallery/[id]/edit/page.js",
+  "/admin/(dashboard)/gallery/page": "app/admin/(dashboard)/gallery/page.js",
+  "/admin/(dashboard)/insights/[id]/edit/page": "app/admin/(dashboard)/insights/[id]/edit/page.js",
+  "/admin/(dashboard)/insights/page": "app/admin/(dashboard)/insights/page.js",
+  "/admin/(dashboard)/messages/page": "app/admin/(dashboard)/messages/page.js",
+  "/admin/(dashboard)/page": "app/admin/(dashboard)/page.js",
+  "/admin/(dashboard)/tutorials/page": "app/admin/(dashboard)/tutorials/page.js",
+  "/admin/(dashboard)/users/page": "app/admin/(dashboard)/users/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/events/page": "app/events/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/gallery/page": "app/gallery/page.js",
+  "/get_involved/page": "app/get_involved/page.js",
+  "/insights/page": "app/insights/page.js",
+  "/page": "app/page.js"
+}

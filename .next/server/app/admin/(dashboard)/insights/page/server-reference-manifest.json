@@ -1,0 +1,65 @@
+{
+  "node": {
+    "007fd2f7707c6f271ce1c64a2509b5537e59deb5f0": {
+      "workers": {
+        "app/admin/(dashboard)/insights/page": {
+          "moduleId": 68083,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+        }
+      },
+      "exportedName": "logout",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+    },
+    "401ff1fa4abe58a3c80ca6430cab62fb8d81d18563": {
+      "workers": {
+        "app/admin/(dashboard)/insights/page": {
+          "moduleId": 68083,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/insights/page.tsx"
+        }
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/insights/page.tsx"
+    },
+    "401ac562cfa70f845cab247f585c413d811fb68ea8": {
+      "workers": {
+        "app/admin/(dashboard)/insights/page": {
+          "moduleId": 68083,
+          "async": false,
+          "exportedName": "deleteInsight",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/insights/actions.ts"
+        }
+      },
+      "exportedName": "deleteInsight",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/insights/actions.ts"
+    },
+    "40aaf02493b27f9211f38e7180abfd3af38aac166c": {
+      "workers": {
+        "app/admin/(dashboard)/insights/page": {
+          "moduleId": 68083,
+          "async": false,
+          "exportedName": "createInsight",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/insights/actions.ts"
+        }
+      },
+      "exportedName": "createInsight",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/insights/actions.ts"
+    },
+    "40af9e40a8406cdefa455f0590df5165ae40544a56": {
+      "workers": {
+        "app/admin/(dashboard)/insights/page": {
+          "moduleId": 68083,
+          "async": false,
+          "exportedName": "updateInsight",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/insights/actions.ts"
+        }
+      },
+      "exportedName": "updateInsight",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/insights/actions.ts"
+    }
+  },
+  "edge": {}
+}

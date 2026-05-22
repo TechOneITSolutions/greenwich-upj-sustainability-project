@@ -1,0 +1,53 @@
+{
+  "node": {
+    "007fd2f7707c6f271ce1c64a2509b5537e59deb5f0": {
+      "workers": {
+        "app/admin/(dashboard)/events/[id]/edit/page": {
+          "moduleId": 89440,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+        }
+      },
+      "exportedName": "logout",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+    },
+    "4036d81e1191ba5d59aa730376ba0001a77a15d09d": {
+      "workers": {
+        "app/admin/(dashboard)/events/[id]/edit/page": {
+          "moduleId": 89440,
+          "async": false,
+          "exportedName": "deleteEvent",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/events/actions.ts"
+        }
+      },
+      "exportedName": "deleteEvent",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/events/actions.ts"
+    },
+    "4038deac88b88e4b3f3a72742717fbd5972f4e6e7b": {
+      "workers": {
+        "app/admin/(dashboard)/events/[id]/edit/page": {
+          "moduleId": 89440,
+          "async": false,
+          "exportedName": "createEvent",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/events/actions.ts"
+        }
+      },
+      "exportedName": "createEvent",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/events/actions.ts"
+    },
+    "40e61e00e5f261eaa0065b3740a10ed3b8988e9d01": {
+      "workers": {
+        "app/admin/(dashboard)/events/[id]/edit/page": {
+          "moduleId": 89440,
+          "async": false,
+          "exportedName": "updateEvent",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/events/actions.ts"
+        }
+      },
+      "exportedName": "updateEvent",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/events/actions.ts"
+    }
+  },
+  "edge": {}
+}

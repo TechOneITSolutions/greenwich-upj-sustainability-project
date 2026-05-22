@@ -1,0 +1,17 @@
+{
+  "node": {
+    "40344fa4ba39626e4d316f52e99c91eeb37b1c178e": {
+      "workers": {
+        "app/contact/page": {
+          "moduleId": 8106,
+          "async": false,
+          "exportedName": "submitContactMessage",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/contact/actions.ts"
+        }
+      },
+      "exportedName": "submitContactMessage",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/contact/actions.ts"
+    }
+  },
+  "edge": {}
+}

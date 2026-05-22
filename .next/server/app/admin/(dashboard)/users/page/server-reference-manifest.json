@@ -1,0 +1,53 @@
+{
+  "node": {
+    "007fd2f7707c6f271ce1c64a2509b5537e59deb5f0": {
+      "workers": {
+        "app/admin/(dashboard)/users/page": {
+          "moduleId": 31012,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+        }
+      },
+      "exportedName": "logout",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/login/actions.ts"
+    },
+    "407c0adbd7c28b39e5449033638ec33c6f41d063f1": {
+      "workers": {
+        "app/admin/(dashboard)/users/page": {
+          "moduleId": 31012,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/users/page.tsx"
+        }
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/users/page.tsx"
+    },
+    "4006dbb4e3e632616b37321f77d45cab45e19b4cbf": {
+      "workers": {
+        "app/admin/(dashboard)/users/page": {
+          "moduleId": 31012,
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/users/actions.ts"
+        }
+      },
+      "exportedName": "deleteUser",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/users/actions.ts"
+    },
+    "400eb5c0724bcb326bbe930c77a986f72deac705c7": {
+      "workers": {
+        "app/admin/(dashboard)/users/page": {
+          "moduleId": 31012,
+          "async": false,
+          "exportedName": "createUser",
+          "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/users/actions.ts"
+        }
+      },
+      "exportedName": "createUser",
+      "filename": "Desktop/TechOne/Dev/greenwich-upj-sustainability-project/app/admin/(dashboard)/users/actions.ts"
+    }
+  },
+  "edge": {}
+}
